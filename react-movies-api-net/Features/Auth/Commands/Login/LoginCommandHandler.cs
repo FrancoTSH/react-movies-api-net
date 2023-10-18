@@ -24,7 +24,7 @@ namespace react_movies_api_net.Features.Auth.Commands.Login
 
             if (user is null || !BCrypt.Net.BCrypt.Verify(request.Password, user.Password))
             {
-                throw new ForbiddenAccessException();
+                throw new UnauthorizedException();
 
             }
 

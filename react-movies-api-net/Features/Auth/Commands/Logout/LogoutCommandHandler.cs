@@ -18,7 +18,7 @@ namespace react_movies_api_net.Features.Auth.Commands.Logout
 
             if (user is null)
             {
-                throw new ForbiddenAccessException();
+                throw new UnauthorizedException();
             }
 
             user.RefreshToken = null;

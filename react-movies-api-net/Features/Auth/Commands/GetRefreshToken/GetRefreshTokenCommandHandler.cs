@@ -27,7 +27,7 @@ namespace react_movies_api_net.Features.Auth.Commands.GetRefreshToken
 
             if (user is null)
             {
-                throw new ForbiddenAccessException();
+                throw new UnauthorizedException();
             }
 
             var isRefreshTokenMatching = BCrypt.Net.BCrypt.Verify(request.RefreshToken, user.RefreshToken);
@@ -35,7 +35,7 @@ namespace react_movies_api_net.Features.Auth.Commands.GetRefreshToken
 
             if (!isTokenValid || !isRefreshTokenMatching)
             {
-                throw new ForbiddenAccessException();
+                throw new UnauthorizedException();
             }
 
             var accessToken = _jwtService.GenerateToken(user.Id.ToString());

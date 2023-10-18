@@ -1,6 +1,7 @@
 ﻿using AutoMapper;
 using MediatR;
 using react_movies_api_net.Data;
+using react_movies_api_net.Exceptions;
 using react_movies_api_net.Features.Users.Queries.GetProfile;
 
 namespace react_movies_api_net.Features.Users.Commands.UpdateProfile
@@ -18,8 +19,7 @@ namespace react_movies_api_net.Features.Users.Commands.UpdateProfile
 
         public async Task<GetProfileQueryResponse> Handle(UpdateProfileCommand request, CancellationToken cancellationToken)
         {
-            var user = await _context.Users.FindAsync(request.Id);
-
+            var user = await _context.Users.FindAsync(request.Id) ?? throw new EntityNotFoundException();
             user.Name = request.Name;
             user.Email = request.Email;
             user.PhotoUrl = request.PhotoUrl;
